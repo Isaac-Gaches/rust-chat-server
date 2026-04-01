@@ -1,15 +1,16 @@
-# Build stage
-FROM rust:1.75 as builder
+FROM rust:latest as builder
 
 WORKDIR /app
 COPY . .
 
 RUN cargo build --release
 
-# Runtime stage
 FROM debian:bookworm-slim
 
 WORKDIR /app
-COPY --from=builder /app/target/release/chat-server .
+COPY --from=builder /app/target/release/rust-chat-server .
+
+# Render expects PORT binding
+ENV PORT=10000
 
 CMD ["./chat-server"]
