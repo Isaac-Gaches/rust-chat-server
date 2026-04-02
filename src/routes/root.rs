@@ -17,25 +17,37 @@ async fn home() -> Html<&'static str> {
 
     <ul id="messages"></ul>
 
-    <script>
-        const ws = new WebSocket(`wss://${location.host}/ws`);
+   <script>
+    const username = prompt("Enter your name:");
 
-        ws.onopen = () => {
-            console.log("connected");
-        };
+    const ws = new WebSocket(`wss://${location.host}/ws`);
 
-        ws.onmessage = (event) => {
-            const li = document.createElement("li");
-            li.textContent = event.data;
-            document.getElementById("messages").appendChild(li);
-        };
+    ws.onopen = () => {
+        ws.send(username); // first message = username
+    };
 
-        function send() {
-            const input = document.getElementById("msg");
-            ws.send(input.value);
-            input.value = "";
+    ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        const li = document.createElement("li");
+
+        if (data.type === "Join") {
+            li.textContent = `🟢 ${data.user} joined`;
+        } else if (data.type === "Leave") {
+            li.textContent = `🔴 ${data.user} left`;
+        } else if (data.type === "Chat") {
+            li.textContent = `${data.user}: ${data.content}`;
         }
-    </script>
+
+        document.getElementById("messages").appendChild(li);
+    };
+
+    function send() {
+        const input = document.getElementById("msg");
+        ws.send(input.value);
+        input.value = "";
+    }
+</script>
 </body>
 </html>
 "#)
