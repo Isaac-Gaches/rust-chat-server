@@ -65,7 +65,7 @@ pub async fn handle_socket(mut socket: WebSocket, state: Arc<AppState>) {
                                 serde_json::to_string(&chat_msg).unwrap()
                             );
                         }
-                        else{
+                        else {
                             let chat_msg = ChatMessage::Chat {
                                 user: username.clone(),
                                 content: text,
