@@ -32,11 +32,17 @@ async fn home() -> Html<&'static str> {
         const li = document.createElement("li");
 
         if (data.type === "Join") {
-            li.textContent = `🟢 ${data.user} joined`;
+            li.textContent = `${data.user} joined`;
         } else if (data.type === "Leave") {
-            li.textContent = `🔴 ${data.user} left`;
+            li.textContent = `${data.user} left`;
         } else if (data.type === "Chat") {
             li.textContent = `${data.user}: ${data.content}`;
+        } else if (data.type === "Query") {
+            data.logs.forEach(log => {
+                const li = document.createElement("li");
+                li.textContent = log;
+                document.getElementById("messages").appendChild(li);
+            });
         }
 
         document.getElementById("messages").appendChild(li);

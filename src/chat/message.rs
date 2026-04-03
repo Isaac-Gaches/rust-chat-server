@@ -6,4 +6,5 @@ pub enum ChatMessage {
     Join { user: String },
     Leave { user: String },
     Chat { user: String, content: String },
+    Query { response: Vec<String> },
 }
