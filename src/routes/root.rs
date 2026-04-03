@@ -39,7 +39,7 @@ async fn home() -> Html<&'static str> {
         } else if (data.type === "Chat") {
             li.textContent = `${data.user}: ${data.content}`;
         } else if (data.type === "Query") {
-            data.logs.forEach(log => {
+            data.response.forEach(log => {
                 const li = document.createElement("li");
                 li.textContent = log;
                 document.getElementById("messages").appendChild(li);
