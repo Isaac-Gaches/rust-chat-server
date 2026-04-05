@@ -27,10 +27,10 @@ async fn home() -> Html<&'static str> {
     };
 
     ws.onmessage = (event) => {
-        console.log("RAW:", event.data);
         const data = JSON.parse(event.data);
 
         const li = document.createElement("li");
+        li.style.whiteSpace = "pre-line";
 
         if (data.type === "Join") {
             li.textContent = `${data.user} joined`;
