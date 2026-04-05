@@ -18,7 +18,7 @@ pub async fn run() {
     let port = std::env::var("PORT").unwrap_or("3000".into());
     let addr = format!("0.0.0.0:{}", port);
 
-    log!(Level::Info, "Address found: {}", addr);
+    log!(Level::Info, "Address: {}", addr);
 
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
 

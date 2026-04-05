@@ -1,12 +1,12 @@
 use std::time::{Instant, Duration};
 
-pub struct RateLimiter {
+pub struct Limiter {
     max: usize,
     window: Duration,
     timestamps: Vec<Instant>,
 }
 
-impl RateLimiter {
+impl Limiter {
     pub fn new(max: usize, window: Duration) -> Self {
         Self {
             max,
@@ -32,7 +32,7 @@ impl RateLimiter {
 
 #[test]
 fn test_rate_limiter() {
-    let mut limiter = RateLimiter::new(2, Duration::from_secs(10));
+    let mut limiter = Limiter::new(2, Duration::from_secs(10));
 
     assert!(limiter.allow());
     assert!(limiter.allow());

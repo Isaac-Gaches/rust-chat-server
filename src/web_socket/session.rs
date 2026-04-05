@@ -5,7 +5,7 @@ use std::time::{Duration};
 use axum::extract::ws::Message;
 use futures::StreamExt;
 use crate::chat::message::ChatMessage;
-use crate::rate_limit::limiter::RateLimiter;
+use rate_limiter::Limiter;
 use logger::*;
 
 pub async fn handle_socket(mut socket: WebSocket, state: Arc<AppState>) {
@@ -16,7 +16,7 @@ pub async fn handle_socket(mut socket: WebSocket, state: Arc<AppState>) {
         _ => return,
     };
 
-    let mut limiter = RateLimiter::new(5, Duration::from_secs(5));
+    let mut limiter = Limiter::new(5, Duration::from_secs(5));
 
     let _ = state.tx.send(
         serde_json::to_string(&ChatMessage::Join {
@@ -50,7 +50,6 @@ pub async fn handle_socket(mut socket: WebSocket, state: Arc<AppState>) {
 
                             let response = logs
                                 .iter()
-                                .rev()
                                 .take(20)
                                 .map(|l| format!("[{:?}] {}", l.level, l.msg))
                                 .collect::<Vec<_>>();

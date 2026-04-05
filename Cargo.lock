@@ -123,6 +123,7 @@ dependencies = [
  "axum",
  "futures",
  "logger",
+ "rate_limiter",
  "serde",
  "serde_json",
  "tokio",
@@ -594,6 +595,10 @@ checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 dependencies = [
  "getrandom",
 ]
+
+[[package]]
+name = "rate_limiter"
+version = "0.1.0"
 
 [[package]]
 name = "rayon"
