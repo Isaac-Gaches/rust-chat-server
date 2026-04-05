@@ -1,1 +1,0 @@
-Cloned<Filter<std::collections::vec_deque::Iter<'_, LogMessage>, {closure@src\buffer.rs:32:21: 32:24}>>
