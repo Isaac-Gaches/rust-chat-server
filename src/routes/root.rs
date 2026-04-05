@@ -39,7 +39,7 @@ async fn home() -> Html<&'static str> {
         } else if (data.type === "Chat") {
             li.textContent = `${data.user}: ${data.content}`;
         } else if (data.type === "Query") {
-            li.textContent = data.logs.join("\n");
+            li.textContent = data.response.join("\n");
         }
 
         document.getElementById("messages").appendChild(li);
