@@ -36,6 +36,7 @@ pub async fn handle_socket(mut socket: WebSocket, state: Arc<AppState>) {
                             continue;
                         }
                         else if text.starts_with("/logs") {
+                            log!(Level::Info, "{} checked logs", username.clone());
                             let level = if text.contains("-info") {
                                 Level::Info
                             } else if text.contains("-warn") {
@@ -57,6 +58,7 @@ pub async fn handle_socket(mut socket: WebSocket, state: Arc<AppState>) {
                             ChatMessage::Query { response }
                         }
                         else {
+                            log!(Level::Info, "{} sent a message", username.clone());
                             ChatMessage::Chat {
                                 user: username.clone(),
                                 content: text,
